@@ -3,6 +3,7 @@ name: ci
 on:
   push:
     branches: ['**']
+    tags: ['v*']
   pull_request:
 
 jobs:
@@ -27,3 +28,24 @@ jobs:
       - run: bun run check
       - run: bun test
       - run: bun run build
+
+  # Push a tag vX.Y.Z (matching package.json) to publish. Auth is npm trusted publishing (OIDC), no token.
+  publish:
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - run: test "v$(node -p 'require("./package.json").version')" = "$GITHUB_REF_NAME"
+      - run: bun install --frozen-lockfile
+      - run: npm publish --access public
