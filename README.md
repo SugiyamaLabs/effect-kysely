@@ -1,5 +1,8 @@
 # @sugiyamalabs/effect-kysely
 
+[![npm](https://img.shields.io/npm/v/@sugiyamalabs/effect-kysely)](https://www.npmjs.com/package/@sugiyamalabs/effect-kysely)
+[![ci](https://github.com/SugiyamaLabs/effect-kysely/actions/workflows/ci.yml/badge.svg)](https://github.com/SugiyamaLabs/effect-kysely/actions/workflows/ci.yml)
+
 [Kysely](https://kysely.dev)'s type-safe query builder, executed by [Effect 4](https://effect.website)'s `SqlClient`.
 
 Kysely builds and compiles the query. The SQL and its parameters then run through the `SqlClient`
@@ -15,6 +18,7 @@ already in your Effect context, so you keep:
 
 ```sh
 bun add @sugiyamalabs/effect-kysely kysely effect
+# or: npm install @sugiyamalabs/effect-kysely kysely effect
 ```
 
 ## Use
@@ -84,5 +88,7 @@ bun test                                                        # SQLite in memo
 PG_URL=postgres://postgres:pw@localhost:5432/postgres bun test  # also against Postgres
 bun run check && bun run build
 ```
+
+Release: `npm version patch && git push --follow-tags`. The `v*` tag makes CI publish to npm (trusted publishing).
 
 MIT © SugiyamaLabs
