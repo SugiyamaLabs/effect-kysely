@@ -1,0 +1,33 @@
+{
+  "name": "@sugiyamalabs/effect-kysely",
+  "version": "0.1.0",
+  "description": "Kysely's type-safe query builder, executed by Effect 4's SqlClient (same connection, transactions and tracing).",
+  "license": "MIT",
+  "author": "Willian Sugiyama",
+  "repository": { "type": "git", "url": "git+https://github.com/SugiyamaLabs/effect-kysely.git" },
+  "keywords": ["effect", "kysely", "sql", "postgres", "sqlite", "query-builder"],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }
+  },
+  "files": ["dist", "src", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "check": "tsc --noEmit -p .",
+    "test": "bun test",
+    "prepublishOnly": "bun run check && bun test && bun run build"
+  },
+  "peerDependencies": {
+    "effect": "^4.1.0",
+    "kysely": "^0.28.0 || ^0.29.0"
+  },
+  "devDependencies": {
+    "@effect/sql-pg": "4.1.1",
+    "@effect/sql-sqlite-bun": "4.1.0",
+    "@types/bun": "1.3.1",
+    "effect": "4.1.0",
+    "kysely": "0.29.8",
+    "typescript": "5.9.3"
+  }
+}
